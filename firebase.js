@@ -42,13 +42,13 @@ function updateDeviceButton(path, elementId, deviceName) {
     onValue(dbRef, (snapshot) => {
         if (snapshot.exists()) {
             const state = snapshot.val();
-            if (state === "true") {
+            if (state == 1) {
                 button.textContent = `Turn ${deviceName} Off`;
-                button.onclick = () => set(dbRef, "false"); // Hàm tắt thiết bị
+                button.onclick = () => set(dbRef, 0); // Hàm tắt thiết bị
                 button.className = "w-full sm:w-auto bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300";
             } else {
                 button.textContent = `Turn ${deviceName} On`;
-                button.onclick = () => set(dbRef, "true"); // Hàm bật thiết bị
+                button.onclick = () => set(dbRef, 1); // Hàm bật thiết bị
                 button.className = "w-full sm:w-auto bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300";
             }
         } else {
@@ -63,9 +63,9 @@ function updateDeviceButton(path, elementId, deviceName) {
 
 // Lấy dữ liệu cảm biến và hiển thị
 document.addEventListener("DOMContentLoaded", () => {
-    getSensorData("sensors/co/data", "sensor-co", "CO Sensor");
-    getSensorData("sensors/gas/data", "sensor-gas", "Gas Sensor");
-    getSensorData("sensors/fire/data", "sensor-fire", "Fire Sensor");
+    getSensorData("sensors/co/data/data", "sensor-co", "CO Sensor");
+    getSensorData("sensors/gas/data/data", "sensor-gas", "Gas Sensor");
+    getSensorData("sensors/fire/data/data", "sensor-fire", "Fire Sensor");
 
     // Cập nhật trạng thái nút
     updateDeviceButton("/sensors/quat/data/data", "fan-button", "Fan");
