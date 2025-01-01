@@ -63,6 +63,8 @@ app.get('/', (req, res) => {
 
 // Route xử lý đăng nhập sử dụng controller
 app.post('/login', loginController.checkLogin);
+app.post('/change-password', loginController.changePassword);
+
 
 // Route cho trang chính (home) sau khi đăng nhập thành công
 // Kiểm tra trạng thái đăng nhập trước khi cho phép truy cập vào trang /home

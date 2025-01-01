@@ -204,7 +204,7 @@ function getSensorData(path, elementId, sensorName) {
             // Cập nhật cảnh báo
             if (sensorName == "Cảm biến phát hiện khí CO") {
                 updateAlert("co", data);
-            } else if (sensorName == "Cảm biến phát hiện khí GasGas") {
+            } else if (sensorName == "Cảm biến phát hiện khí Gas") {
                 updateAlert("gas", data);
             } else if (sensorName == "Cảm biến phát hiện Lửa") {
                 updateAlert("fire", data);

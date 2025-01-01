@@ -1,4 +1,4 @@
-const { getDatabase, ref, get } = require('firebase/database');
+const { getDatabase, ref, get, set } = require('firebase/database');
 
 // Hàm kiểm tra tài khoản và mật khẩu
 async function checkLogin(req, res) {
@@ -53,6 +53,44 @@ async function checkLogin(req, res) {
     }
 }
 
+// Hàm đổi mật khẩu
+async function changePassword(req, res) {
+    const { oldPassword, newPassword } = req.body;
+    console.log('Yêu cầu đổi mật khẩu...');
+
+    const dbRefMk = ref(req.app.locals.database, 'admin/mk ');
+
+    try {
+        // Lấy mật khẩu hiện tại từ Firebase
+        const snapshotMk = await get(dbRefMk);
+        if (snapshotMk.exists()) {
+            const storedPassword = String(snapshotMk.val()).trim();
+            console.log("Mật khẩu hiện tại từ Firebase:", storedPassword);
+
+            // Kiểm tra mật khẩu cũ có đúng không
+            if (storedPassword === String(oldPassword).trim()) {
+                console.log("Mật khẩu cũ khớp, cập nhật mật khẩu mới...");
+
+                // Cập nhật mật khẩu mới lên Firebase
+                await set(dbRefMk, newPassword.trim());
+                console.log("Đổi mật khẩu thành công!");
+
+                return res.status(200).json({ message: 'Đổi mật khẩu thành công!' });
+            } else {
+                console.log("Mật khẩu cũ không đúng!");
+                return res.status(401).json({ message: 'Mật khẩu cũ không đúng!' });
+            }
+        } else {
+            console.log("Không tìm thấy mật khẩu trong Firebase!");
+            return res.status(404).json({ message: 'Không tìm thấy mật khẩu trong Firebase!' });
+        }
+    } catch (error) {
+        console.error("Lỗi khi đổi mật khẩu:", error);
+        return res.status(500).json({ message: 'Lỗi khi đổi mật khẩu.' });
+    }
+}
+
 module.exports = {
-    checkLogin
+    checkLogin,
+    changePassword
 };

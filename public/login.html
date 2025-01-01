@@ -14,7 +14,8 @@
 
 <body>
     <!-- Login Section -->
-    <section class="vh-100 gradient-custom">
+    <!-- Login Section -->
+    <section id="loginSection" class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -46,6 +47,9 @@
                                 </form>
                                 <!-- Form end -->
 
+                                <!-- Change Password Button -->
+                                <button id="changePasswordLink" class="btn btn-link mt-3">Đổi mật khẩu</button>
+
                             </div>
                         </div>
                     </div>
@@ -53,6 +57,58 @@
             </div>
         </div>
     </section>
+
+    <!-- Change Password Section -->
+    <section id="changePasswordSection" class="vh-100 gradient-custom" style="display: none;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-light text-dark" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <div class="mb-md-5 mt-md-4 pb-5">
+                                <h2 class="fw-bold mb-2 text-uppercase">Đổi mật khẩu</h2>
+
+                                <!-- Form start -->
+                                <form id="changePasswordForm" method="POST">
+                                    <!-- Old Password input -->
+                                    <div class="form-outline form-dark mb-4">
+                                        <input type="password" id="oldPassword" class="form-control form-control-lg"
+                                            required />
+                                        <label class="form-label" for="oldPassword">Mật khẩu cũ</label>
+                                    </div>
+
+                                    <!-- New Password input -->
+                                    <div class="form-outline form-dark mb-4">
+                                        <input type="password" id="newPassword" class="form-control form-control-lg"
+                                            required />
+                                        <label class="form-label" for="newPassword">Mật khẩu mới</label>
+                                    </div>
+
+                                    <!-- Confirm Password input -->
+                                    <div class="form-outline form-dark mb-4">
+                                        <input type="password" id="confirmPassword" class="form-control form-control-lg"
+                                            required />
+                                        <label class="form-label" for="confirmPassword">Xác nhận mật khẩu mới</label>
+                                    </div>
+
+                                    <!-- Change Password Button -->
+                                    <button id="changePasswordBtn" class="btn btn-outline-dark btn-lg px-5"
+                                        type="submit">Đổi mật khẩu</button>
+                                </form>
+                                <!-- Form end -->
+
+                                <!-- Back to Login Button -->
+                                <button id="backToLoginLink" class="btn btn-link mt-3">Quay lại đăng nhập</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- MDBootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
@@ -96,6 +152,54 @@
 
         });
 
+
+        document.getElementById('changePasswordForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Ngăn gửi form mặc định
+
+            const oldPassword = document.getElementById('oldPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Kiểm tra mật khẩu mới và xác nhận
+            if (newPassword !== confirmPassword) {
+                alert('Mật khẩu mới và xác nhận không khớp.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/change-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ oldPassword, newPassword }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message); // Đổi mật khẩu thành công
+                    window.location.href = "/";
+                } else {
+                    alert(result.message); // Hiển thị lỗi
+                }
+            } catch (error) {
+                alert('Có lỗi xảy ra khi đổi mật khẩu');
+                console.error(error);
+            }
+        });
+
+        // Chuyển sang giao diện đổi mật khẩu
+        document.getElementById('changePasswordLink').addEventListener('click', function () {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('changePasswordSection').style.display = 'block';
+        });
+
+        // Quay lại giao diện đăng nhập
+        document.getElementById('backToLoginLink').addEventListener('click', function () {
+            document.getElementById('changePasswordSection').style.display = 'none';
+            document.getElementById('loginSection').style.display = 'block';
+        });
     </script>
 </body>
 
