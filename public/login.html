@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./login.css">
+    <!-- MDBootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet" />
+    <!-- FontAwesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body>
+    <!-- Login Section -->
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-light text-dark" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <div class="mb-md-5 mt-md-4 pb-5">
+                                <h2 class="fw-bold mb-2 text-uppercase">Đăng nhập hệ thống</h2>
+
+                                <!-- Form start -->
+                                <form id="loginForm" method="POST">
+                                    <!-- Email input -->
+                                    <div class="form-outline form-dark mb-4">
+                                        <input type="email" id="typeEmailX" class="form-control form-control-lg"
+                                            required />
+                                        <label class="form-label" for="typeEmailX">Email</label>
+                                    </div>
+
+                                    <!-- Password input -->
+                                    <div class="form-outline form-dark mb-4">
+                                        <input type="password" id="typePasswordX" class="form-control form-control-lg"
+                                            required />
+                                        <label class="form-label" for="typePasswordX">Password</label>
+                                    </div>
+
+                                    <!-- Login Button -->
+                                    <button id="loginBtn" class="btn btn-outline-dark btn-lg px-5" type="submit">Đăng
+                                        nhập</button>
+                                </form>
+                                <!-- Form end -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MDBootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
+
+    <!-- Include your custom JS file for login -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Ngăn gửi form mặc định
+
+            const email = document.getElementById('typeEmailX').value;
+            const password = document.getElementById('typePasswordX').value;
+
+            // Kiểm tra dữ liệu đã được lấy đúng chưa
+            console.log('Email:', email); // In ra để kiểm tra
+            console.log('Password:', password); // In ra để kiểm tra
+
+            try {
+                const email = document.getElementById('typeEmailX').value;
+                const password = document.getElementById('typePasswordX').value;
+
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message); // Đăng nhập thành công
+                    window.location.href = "/home"
+                } else {
+                    alert(result.message); // Hiển thị lỗi
+                }
+            } catch (error) {
+                alert('Có lỗi xảy ra khi đăng nhập');
+                console.error(error);
+            }
+
+        });
+
+    </script>
+</body>
+
+</html>
