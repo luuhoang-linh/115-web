@@ -5,8 +5,8 @@ async function checkLogin(req, res) {
     const { email, password } = req.body;
     console.log('Đang kiểm tra tài khoản:', email);
 
-    const dbRefTk = ref(req.app.locals.database, 'admin/tk ');
-    const dbRefMk = ref(req.app.locals.database, 'admin/mk ');
+    const dbRefTk = ref(req.app.locals.database, 'admin/tk');
+    const dbRefMk = ref(req.app.locals.database, 'admin/mk');
 
     try {
         // Lấy tài khoản từ Firebase
@@ -58,7 +58,7 @@ async function changePassword(req, res) {
     const { oldPassword, newPassword } = req.body;
     console.log('Yêu cầu đổi mật khẩu...');
 
-    const dbRefMk = ref(req.app.locals.database, 'admin/mk ');
+    const dbRefMk = ref(req.app.locals.database, 'admin/mk');
 
     try {
         // Lấy mật khẩu hiện tại từ Firebase

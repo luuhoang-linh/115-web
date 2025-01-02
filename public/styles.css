@@ -221,33 +221,79 @@ body {
     font-size: 16px;
     font-weight: bold;
     text-align: center;
-    animation: blink 2s infinite;
+    /* animation: blink 2s infinite; */
     /* Nhấp nháy liên tục với thời gian 1 giây */
 }
 
-/* Tùy chỉnh cho từng loại cảnh báo */
-.custom-alert-co {
-    background-color: #f44336;
-    /* Đỏ */
-    color: black;
-}
-
-.custom-alert-gas {
-    background-color: #f44336;
-    /* Cam */
-    color: black;
-}
-
-.custom-alert-fire {
-    background-color: #f44336;
-    /* Hồng */
-    color: black;
-}
-
-.custom-alert-distance {
-    background-color: #f44336;
-    /* Xanh lá */
-    color: black;
-}
-
 /* Các hiệu ứng khác có thể được thêm vào */
+/* Định dạng chung cho công tắc */
+.switch {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Ẩn checkbox mặc định */
+.switch input {
+    display: none;
+}
+
+/* Định dạng thanh trượt */
+.slider {
+    position: relative;
+    width: 50px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 25px;
+    margin-left: 10px;
+    transition: background-color 0.4s;
+}
+
+/* Định dạng nút tròn bên trong thanh trượt */
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.4s;
+}
+
+/* Thay đổi màu nền khi được chọn */
+input:checked+.slider {
+    background-color: #4CAF50;
+}
+
+/* Di chuyển nút tròn khi được chọn */
+input:checked+.slider::before {
+    transform: translateX(25px);
+}
+
+/* Định dạng văn bản nhãn */
+.label-text {
+    font-size: 16px;
+    color: #333;
+    /* margin-right: 5px; */
+}
+
+
+.mt-8 {
+    display: flex;
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    /* height: 100vh; */
+    /* Hoặc kích thước của khung chứa */
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    /* Khoảng cách giữa các công tắc */
+}
+

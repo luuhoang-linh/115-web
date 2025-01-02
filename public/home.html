@@ -13,96 +13,72 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.js"></script>
 
     <!-- Thêm Firebase SDK qua CDN -->
-    <script type="module" src="./firebase.js" defer></script>
+    <script type="module" src="./main.js" defer></script>
 </head>
 
 <body class="bg-gray-100">
     <!-- Thanh main chính -->
-    <h1 class="bg-gradient-to-r from-blue-500 to-green-500 p-4 text-gray-300 text-3xl font-bold text-center hover:text-white-300 transition-all sticky top-0 z-10">
+    <h1
+        class="bg-gradient-to-r from-blue-500 to-green-500 p-4 text-gray-300 text-3xl font-bold text-center hover:text-white-300 transition-all sticky top-0 z-10">
         Hệ thống báo cháy và chống trộm
     </h1>
-    
-    
 
-    <!-- Thanh Tab Navigation -->
+    <!-- Nội dung chính -->
     <div class="max-w-6xl mx-auto mt-10">
-        <div class="bg-white shadow-lg rounded-lg">
-            <ul class="flex space-x-4 p-4 border-b">
-                <!-- Tab Cảm biến -->
-                <li class="tab-button text-center w-1/2 p-2 cursor-pointer hover:bg-gray-200 transition-all" id="sensor-tab">Cảm biến</li>
-                <!-- Tab Điều khiển -->
-                <li class="tab-button text-center w-1/2 p-2 cursor-pointer hover:bg-gray-200 transition-all" id="control-tab">Điều khiển thiết bị</li>
-            </ul>
-        </div>
+        <div class="bg-white shadow-lg rounded-lg p-6 ">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-6">Bảng điều khiển</h1>
 
-        <!-- Nội dung Cảm biến -->
-        <div id="sensor-content" class="tab-content p-6 bg-white">
-            <h1 class="text-3xl font-bold text-center text-gray-900 mb-6">Dữ liệu nhận từ cảm biến</h1>
+            <!-- Dữ liệu từ cảm biến -->
+            <div>
+                <!-- Cảnh báo từ cảm biến -->
+                <div id="sensor-fire-system" class="custom-alert mb-4"
+                    style="display: block;  color: black; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold;">
+                    Loading...
+                </div>
 
-            <!-- Hiển thị dữ liệu từ các cảm biến -->
-            <div id="sensor-co" class="text-center mb-4 text-gray-800 text-xl">Cảm biến phát hiện khí CO: Đang tải...</div>
-            <div id="sensor-gas" class="text-center mb-4 text-gray-800 text-xl">Cảm biến phát hiện khí Gas: Đang tải...</div>
-            <div id="sensor-fire" class="text-center mb-6 text-gray-800 text-xl">Cảm biến phát hiện Lửa: Đang tải...</div>
-
-            <!-- Cảm biến chống trộm -->
-            <div id="sensor-distance" class="text-center mb-6 text-gray-800 text-xl"></div>
-
-            <!-- Cảnh báo từ các cảm biến -->
-            <div id="alert-co" class="custom-alert custom-alert-co" style="display: none;">Phát hiện nồng độ khí CO vượt mức cho phép!</div>
-            <div id="alert-gas" class="custom-alert custom-alert-gas" style="display: none;">Phát hiện nồng độ khí GAS vượt mức cho phép!</div>
-            <div id="alert-fire" class="custom-alert custom-alert-fire" style="display: none;">Phát hiện có Lửa!</div>
-            <div id="alert-distance" class="custom-alert custom-alert-distance" style="display: none;">Phát hiện có trộm!</div>
-        </div>
-
-        <!-- Nội dung Điều khiển thiết bị -->
-        <div id="control-content" class="tab-content p-6 bg-white hidden">
-            <h1 class="text-3xl font-bold text-center text-gray-900 mb-6">Danh sách các thiết bị</h1>
-
-            <div class="flex flex-col space-y-4">
-                <!-- Nút điều khiển Quạt -->
-                <button id="fan-button"
-                    class="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Đang tải...</button>
-                <!-- Nút điều khiển Bơm -->
-                <button id="pump-button"
-                    class="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300">Đang tải...</button>
-                <!-- Nút điều khiển Chuông -->
-                <button id="bell-button"
-                    class="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition duration-300">Đang tải...</button>
-                <!-- Nút Bật chống trộm -->
-                <button id="canhbao-button"
-                    class="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300">Đang tải...</button>
+                <div id="sensor-distance" class="custom-alert mb-4"
+                    style="display: block; color: black; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold;">
+                    Loading...</div>
             </div>
+
+            <!-- Điều khiển thiết bị -->
+            <div class="mt-8 flex justify-center items-center">
+                <div class="flex flex-row space-x-4">
+                    <!-- Công tắc Quạt -->
+                    <label class="switch">
+                        <span class="label-text">Quạt</span>
+                        <input type="checkbox" id="fan-button">
+                        <span class="slider"></span>
+                    </label>
+                    <!-- Công tắc Bơm -->
+                    <label class="switch">
+                        <span class="label-text">Bơm</span>
+                        <input type="checkbox" id="pump-button">
+                        <span class="slider"></span>
+                    </label>
+                    <!-- Công tắc Chuông -->
+                    <label class="switch">
+                        <span class="label-text">Chuông</span>
+                        <input type="checkbox" id="bell-button">
+                        <span class="slider"></span>
+                    </label>
+                    <!-- Công tắc Chống trộm -->
+                    <label class="switch">
+                        <span class="label-text">Chống trộm</span>
+                        <input type="checkbox" id="canhbao-button">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
 
+    <!-- Firebase and custom scripts -->
     <script>
-        // Lấy các phần tử
-        const sensorTab = document.getElementById('sensor-tab');
-        const controlTab = document.getElementById('control-tab');
-        const sensorContent = document.getElementById('sensor-content');
-        const controlContent = document.getElementById('control-content');
-
-        // Hàm chuyển tab
-        function switchTab(tab) {
-            if (tab === 'sensor') {
-                sensorTab.classList.add('bg-gray-200');
-                controlTab.classList.remove('bg-gray-200');
-                sensorContent.classList.remove('hidden');
-                controlContent.classList.add('hidden');
-            } else if (tab === 'control') {
-                controlTab.classList.add('bg-gray-200');
-                sensorTab.classList.remove('bg-gray-200');
-                controlContent.classList.remove('hidden');
-                sensorContent.classList.add('hidden');
-            }
-        }
-
-        // Gán sự kiện cho các tab
-        sensorTab.addEventListener('click', () => switchTab('sensor'));
-        controlTab.addEventListener('click', () => switchTab('control'));
-
-        // Mặc định hiển thị tab Cảm biến khi tải trang
-        switchTab('sensor');
+        // Firebase logic and button event handlers go here.
     </script>
 </body>
 
